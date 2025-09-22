@@ -17,8 +17,9 @@ RUN apt-get update && \
 
 # 앱 및 설정 복사
 COPY ROOT/ /usr/local/tomcat/webapps/ROOT/
-COPY conf/server.xml /usr/local/tomcat/conf/server.xml
-COPY conf/context.xml /usr/local/tomcat/conf/context.xml
+COPY server.xml /usr/local/tomcat/conf/server.xml
+COPY context.xml /usr/local/tomcat/conf/context.xml
 
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
+
