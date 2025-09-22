@@ -17,8 +17,14 @@ RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/* && 
     curl -L -o /usr/local/tomcat/lib/mysql-connector-j-${MYSQL_DRIVER_VERSION}.jar \
     https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/${MYSQL_DRIVER_VERSION}/mysql-connector-j-${MYSQL_DRIVER_VERSION}.jar
 
+# JDBC 드라이버를 웹앱에도 복사
+RUN cp /usr/local/tomcat/lib/mysql-connector-j-${MYSQL_DRIVER_VERSION}.jar \
+       /usr/local/tomcat/webapps/ROOT/WEB-INF/lib/
+
+
 # 포트 노출
 EXPOSE 8080
 
 # 실행 (기본값)
 CMD ["catalina.sh", "run"]
+
