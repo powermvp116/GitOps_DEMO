@@ -1,29 +1,24 @@
-# Tomcat 9.0 기본 이미지 사용
+# Tomcat 9.0 기반 이미지
 FROM tomcat:9.0
 
-# 기본 ROOT 앱 제거 (선택사항)
+# 기본 ROOT 제거
 RUN rm -rf /usr/local/tomcat/webapps/ROOT
 
-# JSP 파일 외 설정파일도 복사하기 
+# 앱 배포
 COPY ROOT/ /usr/local/tomcat/webapps/ROOT/
 COPY server.xml /usr/local/tomcat/conf/server.xml
 COPY context.xml /usr/local/tomcat/conf/context.xml
 
-# MySQL Connector/JDNB 버전 지정
+# MySQL Connector 버전
 ENV MYSQL_DRIVER_VERSION=8.0.33
 
-# MySQL Connector/JDBC 다운로드 및 Tomcat lib에 복사
-RUN wget https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/${MYSQL_DRIVER_VERSION}/mysql-connector-j-${MYSQL_DRIVER_VERSION}.jar \
-    -O /tmp/mysql-connector-j.jar && \
-    cp /tmp/mysql-connector-j.jar $CATALINA_HOME/lib/ && \
-    rm /tmp/mysql-connector-j.jar
+# MySQL JDBC 다운로드 및 설치
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/* && \
+    curl -L -o /usr/local/tomcat/lib/mysql-connector-j-${MYSQL_DRIVER_VERSION}.jar \
+    https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/${MYSQL_DRIVER_VERSION}/mysql-connector-j-${MYSQL_DRIVER_VERSION}.jar
 
-# 8080 포트 노출
+# 포트 노출
 EXPOSE 8080
 
-# Tomcat 실행 (기본 이미지에서 이미 설정되어 있음)
+# 실행 (기본값)
 CMD ["catalina.sh", "run"]
-
-
-
-
