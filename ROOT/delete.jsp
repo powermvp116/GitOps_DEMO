@@ -20,7 +20,7 @@ if ("POST".equals(request.getMethod())) {
     try {
         Context initContext = new InitialContext();
         Context envContext = (Context)initContext.lookup("java:/comp/env");
-        DataSource ds = (DataSource)envContext.lookup("jdbc/MyDB");
+        DataSource ds = (DataSource)envContext.lookup("jdbc/mydb");
         conn = ds.getConnection();
 
         String deleteSql = "DELETE FROM posts WHERE id=?";
@@ -104,3 +104,4 @@ if ("POST".equals(request.getMethod())) {
     </div>
 </body>
 </html>
+
