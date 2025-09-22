@@ -45,7 +45,7 @@
               description="User database that can be updated and saved"
               factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
               pathname="conf/tomcat-users.xml" />
-    <Resource name="jdbc/MyDB" 
+    <Resource name="jdbc/mydb" 
               auth="Container" 
               type="javax.sql.DataSource"
               maxTotal="20" 
@@ -191,3 +191,4 @@
   </Service>
 
 </Server>
+
