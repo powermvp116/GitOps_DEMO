@@ -27,7 +27,7 @@ if ("POST".equals(request.getMethod())) {
         try {
             Context initContext = new InitialContext();
             Context envContext = (Context)initContext.lookup("java:/comp/env");
-            DataSource ds = (DataSource)envContext.lookup("jdbc/MyDB");
+            DataSource ds = (DataSource)envContext.lookup("jdbc/mydb");
             conn = ds.getConnection();
             
             String updateSql = "UPDATE posts SET title=?, content=?, author=?, updated_at=NOW() WHERE id=?";
@@ -551,3 +551,4 @@ if (!postFound) {
     </script>
 </body>
 </html>
+
