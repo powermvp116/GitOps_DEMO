@@ -36,7 +36,7 @@ ResultSet rs = null;
 try {
     Context initContext = new InitialContext();
     Context envContext = (Context)initContext.lookup("java:/comp/env");
-    DataSource ds = (DataSource)envContext.lookup("jdbc/mydb");
+    DataSource ds = (DataSource)envContext.lookup("jdbc/MyDB");
     conn = ds.getConnection();
     
     String sql = "SELECT * FROM posts WHERE id = ?";
@@ -519,3 +519,4 @@ if (!postFound) {
 </body>
 
 </html>
+
