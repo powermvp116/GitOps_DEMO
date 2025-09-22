@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: prj-tomcat # 새로운 네임스페이스 생성
+  name: default # 새로운 네임스페이스 생성
 ---
 apiVersion: apps/v1
 kind: Deployment
