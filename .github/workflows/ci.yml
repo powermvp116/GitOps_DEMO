@@ -58,8 +58,6 @@ jobs:
 
 
     # 변경된 k8s/deployment.yaml파일을 git에 push
-      - name: Pull latest
-        run: git pull origin main --rebase
        
       - name: Commit and push if there are changes
         run: |
