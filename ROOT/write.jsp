@@ -23,7 +23,7 @@ if("POST".equals(request.getMethod())) {
         try {
             Context initContext = new InitialContext();
             Context envContext = (Context)initContext.lookup("java:/comp/env");
-            DataSource ds = (DataSource)envContext.lookup("jdbc/mydb");
+            DataSource ds = (DataSource)envContext.lookup("jdbc/MyDB");
             conn = ds.getConnection();
             
             String sql = "INSERT INTO posts (title, content, author) VALUES (?, ?, ?)";
@@ -520,4 +520,5 @@ if("POST".equals(request.getMethod())) {
     </script>
 </body>
 </html>
+
 
