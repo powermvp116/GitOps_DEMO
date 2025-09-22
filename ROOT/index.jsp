@@ -8,7 +8,7 @@ response.setCharacterEncoding("UTF-8");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3Tier Architecture 구성하기</title>
+    <title>3Tier Architecture Demo</title>
     
     <!-- 한글 웹 폰트 추가 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -277,7 +277,7 @@ response.setCharacterEncoding("UTF-8");
 <body>
     <div class="container">
         <div class="logo">3TIER</div>
-        <h1>3Tier Architecture 구성하기</h1>
+        <h1>3Tier Architecture Demo</h1>
         <p class="subtitle">
             현대적인 웹 애플리케이션 아키텍처를 체험해보세요<br>
             <strong>Nginx + Tomcat + AWS RDS MySQL</strong> 연동 시스템
@@ -356,5 +356,3 @@ response.setCharacterEncoding("UTF-8");
     </div>
 </body>
 </html>
-
-
