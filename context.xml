@@ -23,8 +23,8 @@
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
     <WatchedResource>WEB-INF/tomcat-web.xml</WatchedResource>
     <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
-    <ResourceLink name="jdbc/mydb" 
-                  global="jdbc/mydb" 
+    <ResourceLink name="jdbc/MyDB" 
+                  global="jdbc/MyDB" 
                   type="javax.sql.DataSource"/>
     <!-- Uncomment this to disable session persistence across Tomcat restarts -->
     <!--
@@ -32,3 +32,4 @@
     -->
 
 </Context>
+
