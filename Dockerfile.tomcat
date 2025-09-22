@@ -1,32 +1,21 @@
-# Tomcat 9.0 기반 이미지
 FROM tomcat:9.0
 
 # 기본 ROOT 제거
 RUN rm -rf /usr/local/tomcat/webapps/ROOT
 
-# 앱 배포
-COPY ROOT/ /usr/local/tomcat/webapps/ROOT/
-COPY server.xml /usr/local/tomcat/conf/server.xml
-COPY context.xml /usr/local/tomcat/conf/context.xml
-
 # MySQL Connector 버전
 ENV MYSQL_DRIVER_VERSION=8.0.33
 
 # MySQL JDBC 다운로드 및 설치
-RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/* && \
-    curl -L -o /usr/local/tomcat/lib/mysql-connector-j-${MYSQL_DRIVER_VERSION}.jar \
-    https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/${MYSQL_DRIVER_VERSION}/mysql-connector-j-${MYSQL_DRIVER_VERSION}.jar
+RUN apt-get update && apt-get install -y wget && \
+    wget -O /usr/local/tomcat/lib/mysql-connector-j-${MYSQL_DRIVER_VERSION}.jar \
+    https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/${MYSQL_DRIVER_VERSION}/mysql-connector-j-${MYSQL_DRIVER_VERSION}.jar && \
+    apt-get purge -y wget && rm -rf /var/lib/apt/lists/*
 
-# JDBC 드라이버를 웹앱에도 복사
-RUN cp /usr/local/tomcat/lib/mysql-connector-j-${MYSQL_DRIVER_VERSION}.jar \
-       /usr/local/tomcat/webapps/ROOT/WEB-INF/lib/
+# 앱 및 설정 복사
+COPY ROOT/ /usr/local/tomcat/webapps/ROOT/
+COPY conf/server.xml /usr/local/tomcat/conf/server.xml
+COPY conf/context.xml /usr/local/tomcat/conf/context.xml
 
-
-# 포트 노출
 EXPOSE 8080
-
-# 실행 (기본값)
 CMD ["catalina.sh", "run"]
-
-
-
