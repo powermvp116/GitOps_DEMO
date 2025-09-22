@@ -6,7 +6,6 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: default
   name: tomcatwas
   labels:
     app: tomcatwas
@@ -35,7 +34,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: tomcat-svc
-  namespace: default
 spec:
   selector:
     app: tomcatwas
@@ -49,7 +47,6 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: tomcat-hpa
-  namespace: prj-tomcat
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
