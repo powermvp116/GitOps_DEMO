@@ -8,7 +8,7 @@ response.setCharacterEncoding("UTF-8");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3Tier Architecture Demo</title>
+    <title>3Tier Architecture 구성하기</title>
     
     <!-- 한글 웹 폰트 추가 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -356,3 +356,4 @@ response.setCharacterEncoding("UTF-8");
     </div>
 </body>
 </html>
+
