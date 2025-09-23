@@ -60,7 +60,10 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
           git pull --rebase origin main
-
+      - name: Commit changes
+        run: |
+         git add .
+         git commit -m "Update deployment file" || echo "No changes to commit"
 
     # 변경된 k8s/deployment.yaml파일을 git에 push
        
