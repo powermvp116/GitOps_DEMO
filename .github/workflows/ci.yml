@@ -55,11 +55,6 @@ jobs:
           sed -i "s|image: .*|image: 595362810845.dkr.ecr.ap-northeast-2.amazonaws.com/ecr_tomcat:$IMAGE_TAG|" ./deployment-tomcat.yaml
 
     # 변경사항이 있으면 커밋하고 푸시합니다.
-      - name: Git pull rebase
-        run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Actions"
-          git pull --rebase origin main
       - name: Commit changes
         run: |
          git add .
