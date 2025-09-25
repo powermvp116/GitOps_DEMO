@@ -30,18 +30,23 @@ jobs:
       # 4. Nginx 이미지 빌드 & 푸시
       - name: Build & Push nginx Docker image
         run: |
-          IMAGE_TAG=${GITHUB_SHA::7}
-          docker build -t ${{ steps.login-ecr.outputs.registry }}/ecr_nginx:$IMAGE_TAG -f ./Dockerfile.nginx .
-          docker push ${{ steps.login-ecr.outputs.registry }}/ecr_nginx:$IMAGE_TAG
-          echo "NGINX_IMAGE=${{ steps.login-ecr.outputs.registry }}/ecr_nginx:$IMAGE_TAG" >> $GITHUB_ENV
+          docker buildx build \
+            --platform linux/amd64 \
+            -f Dockerfile.tomcat \
+            -t ${ECR_TOMCAT}:${IMAGE_TAG::7} \
+            -t ${ECR_TOMCAT}:latest \
+            --push .
 
       # 5. Tomcat 이미지 빌드 & 푸시
       - name: Build & Push tomcat Docker image
         run: |
-          IMAGE_TAG=${GITHUB_SHA::7}
-          docker build -t ${{ steps.login-ecr.outputs.registry }}/ecr_tomcat:$IMAGE_TAG -f ./Dockerfile.tomcat .
-          docker push ${{ steps.login-ecr.outputs.registry }}/ecr_tomcat:$IMAGE_TAG
-          echo "TOMCAT_IMAGE=${{ steps.login-ecr.outputs.registry }}/ecr_tomcat:$IMAGE_TAG" >> $GITHUB_ENV
+          docker buildx build \
+            --platform linux/amd64 \
+            -f Dockerfile.tomcat \
+            -t ${ECR_TOMCAT}:${IMAGE_TAG::7} \
+            -t ${ECR_TOMCAT}:latest \
+            --push .
+
 
       # 6. Deployment YAML 업데이트
       - name: Update nginx Deployment YAML
