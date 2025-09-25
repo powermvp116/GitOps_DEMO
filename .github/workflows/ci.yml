@@ -1,3 +1,4 @@
+
 name: build-deploy
 
 on:
@@ -60,7 +61,7 @@ jobs:
       #    git config --global user.name 'GitHub Actions'
       #    git config --global user.email 'github-actions@github.com'
       #    git add ./deployment-nginx.yaml ./deployment-tomcat.yaml
-      #   git diff --quiet && git diff --staged --quiet || (
+      #    git diff --quiet && git diff --staged --quiet || (
       #     git commit -m "Update image tag to ${GITHUB_SHA}"
       #     git push https://${{ secrets.PAT }}@github.com/${{ github.repository }}.git HEAD:${{ github.ref }}
       #   )
@@ -74,4 +75,3 @@ jobs:
           git commit -m "Update image tag to ${GITHUB_SHA}"
           git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/powermvp1024/GitOps_DEMO.git HEAD:main
           )
-
