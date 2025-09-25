@@ -1,3 +1,4 @@
+
 name: build-deploy
 
 on:
@@ -30,18 +31,22 @@ jobs:
       # 4. Nginx 이미지 빌드 & 푸시
       - name: Build & Push nginx Docker image
         run: |
-          IMAGE_TAG=${GITHUB_SHA::7}
-          docker build -t ${{ steps.login-ecr.outputs.registry }}/ecr_nginx:$IMAGE_TAG -f ./Dockerfile.nginx .
-          docker push ${{ steps.login-ecr.outputs.registry }}/ecr_nginx:$IMAGE_TAG
-          echo "NGINX_IMAGE=${{ steps.login-ecr.outputs.registry }}/ecr_nginx:$IMAGE_TAG" >> $GITHUB_ENV
+          docker buildx build \
+            --platform linux/amd64 \
+            -f Dockerfile.nginx \
+            -t ${ECR_NGINX}:${IMAGE_TAG::7} \
+            -t ${ECR_NGINX}:latest \
+            --push .
 
       # 5. Tomcat 이미지 빌드 & 푸시
       - name: Build & Push tomcat Docker image
         run: |
-          IMAGE_TAG=${GITHUB_SHA::7}
-          docker build -t ${{ steps.login-ecr.outputs.registry }}/ecr_tomcat:$IMAGE_TAG -f ./Dockerfile.tomcat .
-          docker push ${{ steps.login-ecr.outputs.registry }}/ecr_tomcat:$IMAGE_TAG
-          echo "TOMCAT_IMAGE=${{ steps.login-ecr.outputs.registry }}/ecr_tomcat:$IMAGE_TAG" >> $GITHUB_ENV
+          docker buildx build \
+            --platform linux/amd64 \
+            -f Dockerfile.tomcat \
+            -t ${ECR_TOMCAT}:${IMAGE_TAG::7} \
+            -t ${ECR_TOMCAT}:latest \
+            --push .
 
       # 6. Deployment YAML 업데이트
       - name: Update nginx Deployment YAML
@@ -60,7 +65,7 @@ jobs:
       #    git config --global user.name 'GitHub Actions'
       #    git config --global user.email 'github-actions@github.com'
       #    git add ./deployment-nginx.yaml ./deployment-tomcat.yaml
-      #   git diff --quiet && git diff --staged --quiet || (
+      #    git diff --quiet && git diff --staged --quiet || (
       #     git commit -m "Update image tag to ${GITHUB_SHA}"
       #     git push https://${{ secrets.PAT }}@github.com/${{ github.repository }}.git HEAD:${{ github.ref }}
       #   )
@@ -74,4 +79,3 @@ jobs:
           git commit -m "Update image tag to ${GITHUB_SHA}"
           git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/powermvp1024/GitOps_DEMO.git HEAD:main
           )
-
